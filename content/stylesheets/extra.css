@@ -1,0 +1,39 @@
+:root {
+  --md-primary-fg-color:        #00AEEF; /* Barclays Blue-ish */
+  --md-primary-fg-color--light: #4DC4F4;
+  --md-primary-fg-color--dark:  #008AC0;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #00AEEF;
+}
+
+/* Custom Header Styling */
+.md-header {
+  background-color: #00AEEF;
+}
+
+/* Hero Section for Landing Page */
+.md-typeset .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--md-primary-fg-color);
+}

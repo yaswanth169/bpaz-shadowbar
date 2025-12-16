@@ -1,0 +1,118 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shadowbar"
+version = "1.0.0"
+description = "ShadowBar - Barclays Internal AI Agent Framework (Anthropic Claude)"
+readme = "README.md"
+license = {text = "Proprietary - Barclays Internal Use Only"}
+authors = [
+    {name = "Barclays Technology", email = "tech@barclays.com"}
+]
+keywords = ["ai", "agents", "claude", "anthropic", "llm", "barclays"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+
+dependencies = [
+    # Core LLM - Anthropic only (Barclays approved)
+    "anthropic>=0.30.0",
+    
+    # CLI and terminal UI
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    
+    # Data validation
+    "pydantic>=2.0.0",
+    
+    # Environment and config
+    "python-dotenv>=1.0.0",
+    "toml>=0.10.2",
+    
+    # Networking (for relay/agent communication)
+    "websockets>=12.0",
+    "pynacl>=1.5.0",
+    "mnemonic>=0.20",
+    
+    # HTTP client
+    "httpx>=0.25.0",
+    
+    # Logging
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# Optional dependencies for specific features
+relay-server = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+]
+browser = [
+    "playwright>=1.40.0",
+]
+email = [
+    "google-api-python-client>=2.108.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-auth-oauthlib>=1.2.0",
+    "O365>=2.0.26",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+all = [
+    "shadowbar[relay-server,browser,email,dev]",
+]
+
+[project.scripts]
+sb = "shadowbar.cli.main:cli"
+
+[project.urls]
+# Internal documentation (update with actual Barclays URLs)
+Documentation = "https://confluence.internal.barclays.com/shadowbar"
+Repository = "https://github.barclays.com/technology/shadowbar"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+shadowbar = [
+    "prompt_files/*.md",
+    "cli/templates/**/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E501"]  # Line too long (handled by black)
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+
+
